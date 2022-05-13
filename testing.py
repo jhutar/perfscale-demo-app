@@ -14,6 +14,18 @@ class MyAppUser(HttpUser):
         self.client.get("/api/users/1")
 
     @task
+    def get_users_search_name(self):
+        self.client.get("/api/users/search?by=name&text=Petr")
+
+    @task
+    def get_users_search_email(self):
+        self.client.get("/api/users/search?by=email&text=pavla")
+
+    @task
+    def get_users_search_address(self):
+        self.client.get("/api/users/search?by=address&text=Brno")
+
+    @task
     def get_moves(self):
         self.client.get("/api/moves")
 

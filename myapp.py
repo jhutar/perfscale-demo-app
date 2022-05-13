@@ -120,6 +120,27 @@ def api_users_uid(uid):
     """Return info about user ID."""
     return User.query.filter_by(id=uid).first_or_404().serialize()
 
+@app.route('/api/users/search', methods=['GET'])
+def api_users_search():
+    """Search users where field 'by' contains substring 'text'."""
+    assert 'by' in flask.request.args
+    assert 'text' in flask.request.args
+    search_by = flask.request.args['by']
+    search_text = flask.request.args['text']
+
+    query = User.query
+
+    if search_by == 'name':
+        query = query.filter(User.name.ilike('%' + search_text + '%'))
+    elif search_by == 'email':
+        query = query.filter(User.email.ilike('%' + search_text + '%'))
+    elif search_by == 'address':
+        query = query.filter(User.address.ilike('%' + search_text + '%'))
+    else:
+        raise Exception(f"Unknown search by field '{flask.request.args['by']}'")
+
+    return _serialize(query)
+
 
 ##########
 # CLI

@@ -29,6 +29,8 @@ curl --silent -X GET http://127.0.0.1:5000/api/users?page=-1 | grep --quiet '404
 curl --silent -X GET http://127.0.0.1:5000/api/users?page=X | grep --quiet '500 Internal Server Error'
 curl --silent -X GET http://127.0.0.1:5000/api/users/1 | grep --quiet '{'
 curl --silent -X GET http://127.0.0.1:5000/api/users/XYZ | grep --quiet '404 Not Found'
+curl --silent -X GET http://127.0.0.1:5000/api/users/search?by=email\&text=example | grep --quiet '{'
+curl --silent -X GET http://127.0.0.1:5000/api/users/search?by=xyz\&text=example | grep --quiet '500 Internal Server Error'
 curl --silent -X GET http://127.0.0.1:5000/api/moves | grep --quiet '{'
 curl --silent -X GET http://127.0.0.1:5000/api/users/1 | grep --quiet '{'
 
