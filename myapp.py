@@ -106,7 +106,7 @@ def api_moves():
     return _serialize(Move.query)
 
 @app.route('/api/moves/<int:mid>', methods=['GET'])
-def api_moves_uid(uid):
+def api_moves_mid(mid):
     """Return info about move ID."""
     return Move.query.filter_by(id=mid).first_or_404().serialize()
 
