@@ -10,14 +10,36 @@ Usage
 Developing
 ----------
 
-This will get you the server running on `http://127.0.0.1:5000/`:
+Start DB:
+
+    podman run -d --name postgresql_database -e POSTGRESQL_USER=user -e POSTGRESQL_PASSWORD=pass -e POSTGRESQL_DATABASE=db -p 5432:5432 quay.io/centos7/postgresql-13-centos7
+
+Setup terminal environment with what you need to run the app:
 
     python -m venv venv
     source venv/bin/activate
+    pip install -U pip
     pip install -r requirements.txt
     export FLASK_APP=myapp.py
     export FLASK_ENV=development
+    export POSTGRESQL_HOST=localhost
+    export POSTGRESQL_PORT=5432
+    export POSTGRESQL_USER=user
+    export POSTGRESQL_PASSWORD=pass
+    export POSTGRESQL_DATABASE=db
+
+Initialize DB and create some testing data:
+
+    flask init-db
+    flask test-data
+
+And finally this will get you the server running on `http://127.0.0.1:5000/`:
+
     flask run
+
+Handy command to look into the DB:
+
+    PGPASSWORD=$POSTGRESQL_PASSWORD psql --host=$POSTGRESQL_HOST --username=$POSTGRESQL_USER --port=$POSTGRESQL_PORT $POSTGRESQL_DATABASE
 
 
 Build image

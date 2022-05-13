@@ -17,9 +17,10 @@ from sqlalchemy.inspection import inspect
 from sqlalchemy.sql import func
 
 
-
 app = flask.Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/database.db'
+###app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/database.db'
+###app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://user:pass@host:port/database"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{ os.environ['POSTGRESQL_USER'] }:{ os.environ['POSTGRESQL_PASSWORD'] }@{ os.environ['POSTGRESQL_HOST'] }:{ os.environ['POSTGRESQL_PORT'] }/{ os.environ['POSTGRESQL_DATABASE'] }"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app_db = flask_sqlalchemy.SQLAlchemy(app)
