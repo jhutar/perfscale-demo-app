@@ -35,7 +35,7 @@ class User(app_db.Model):
     address = app_db.Column(app_db.Text)
     balance = app_db.Column(app_db.Integer)
     created_at = app_db.Column(app_db.DateTime(timezone=True), server_default=func.now())
-    email = app_db.Column(app_db.String(80), unique=True, nullable=False)
+    email = app_db.Column(app_db.String(80), unique=False, nullable=False)
     name = app_db.Column(app_db.String(100), nullable=False)
     giver_in = app_db.relationship('Move', backref='from_user',
         lazy=True, foreign_keys='Move.from_user_id')
@@ -118,17 +118,19 @@ def test_data_command():
     """Populate initial test data to the DB."""
     fake = faker.Faker('cs_CZ')
 
-    for i in range(10):
+    for i in range(10 * 1000):
         u = User()
         u.name = fake.name()
         u.address = fake.address()
         u.email = fake.email()
         u.balance = fake.random_int()
         app_db.session.add(u)
+        if i % 1000 == 0:
+            app_db.session.flush()
     app_db.session.commit()
 
     users = User.query.all()
-    for i in range(10):
+    for i in range(100 * 1000):
         from_user = random.choice(users)
         to_user = random.choice([item for item in users if item != from_user])
         m = Move()
@@ -136,6 +138,8 @@ def test_data_command():
         m.to_user = to_user
         m.amount = int(fake.random_int() / 100) + 1
         app_db.session.add(m)
+        if i % 1000 == 0:
+            app_db.session.flush()
     app_db.session.commit()
 
 app.cli.add_command(test_data_command)

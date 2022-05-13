@@ -61,6 +61,11 @@ And to run it:
 Testing
 -------
 
-Ensure you do not have some server running on port 5000 and run:
+To test basic functionality, ensure you do not have some server listening
+on port 5000 and run:
 
     ./tests.sh
+
+To run API perf-test:
+
+    locust --locustfile testing.py --headless --users 1 --spawn-rate 1 -H http://localhost:5000 --run-time 3 --print-stats --only-summary

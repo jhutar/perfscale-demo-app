@@ -11,10 +11,18 @@ fi
 
 source venv/bin/activate
 export FLASK_APP=myapp.py
+export POSTGRESQL_HOST=localhost
+export POSTGRESQL_PORT=5432
+export POSTGRESQL_USER=user
+export POSTGRESQL_PASSWORD=pass
+export POSTGRESQL_DATABASE=db
 flask run &>/tmp/myapp.log &
 pid=$!
 trap "kill $pid" EXIT
 sleep 1
 
+curl --silent -X GET http://127.0.0.1:5000/ | grep --quiet 'Hello world'
+curl --silent -X GET http://127.0.0.1:5000/api/users | grep --quiet '{'
+curl --silent -X GET http://127.0.0.1:5000/api/moves | grep --quiet '{'
 
 echo "SUCCESS"
