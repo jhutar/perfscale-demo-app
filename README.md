@@ -69,3 +69,7 @@ on port 5000 and run:
 To run API perf-test:
 
     locust --locustfile testing.py --headless --users 1 --spawn-rate 1 -H http://localhost:5000 --run-time 3 --print-stats --only-summary
+
+Or when deployed in OCP:
+
+    locust --locustfile testing.py --headless --users 10 --spawn-rate 10 -H http://perfscale-demo-service.perfscale-demo-app.svc --run-time 3 --print-stats --only-summary
