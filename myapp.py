@@ -81,7 +81,7 @@ class Move(app_db.Model):
 
 def _serialize(query):
     if 'page' in flask.request.args:
-        page = flask.request.args['page']
+        page = int(flask.request.args['page'])
     else:
         page = 1
 
