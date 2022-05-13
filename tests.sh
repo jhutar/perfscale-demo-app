@@ -11,6 +11,7 @@ fi
 
 source venv/bin/activate
 export FLASK_APP=myapp.py
+export FLASK_ENV=production
 export POSTGRESQL_HOST=localhost
 export POSTGRESQL_PORT=5432
 export POSTGRESQL_USER=user
