@@ -16,6 +16,7 @@ spec:
       initContainers:
         - name: init-perfscale-demo-app
           image: quay.io/rhcloudperfscale/perfscale-demo-app:latest
+          imagePullPolicy: Always
           command:
             - flask
             - init-db
@@ -42,6 +43,7 @@ spec:
       containers:
         - name: perfscale-demo-app
           image: quay.io/rhcloudperfscale/perfscale-demo-app:latest
+          imagePullPolicy: Always
           env:
             - name: POSTGRESQL_HOST
               value: postgresql.perfscale-demo-app.svc
@@ -198,6 +200,7 @@ spec:
       containers:
         - name: perfscale-demo-app
           image: quay.io/rhcloudperfscale/perfscale-demo-app-testing:latest
+          imagePullPolicy: Always
           command:
             - sleep
             - infinity

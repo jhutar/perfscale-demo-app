@@ -19,4 +19,4 @@ COPY . /usr/src/app
 
 USER 1001
 
-CMD gunicorn --bind 0.0.0.0:5000 myapp:app
+CMD gunicorn --access-logfile - --error-logfile - --bind 0.0.0.0:5000 myapp:app
