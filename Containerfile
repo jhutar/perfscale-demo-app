@@ -4,8 +4,6 @@ MAINTAINER Jan Hutar <jhutar@redhat.com>
 
 WORKDIR /usr/src/app
 
-VOLUME /usr/src/app/hosts_dir
-
 ENV FLASK_APP myapp.py
 
 RUN INSTALL_PKGS="python3" \
