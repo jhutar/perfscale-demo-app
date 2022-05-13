@@ -1,0 +1,20 @@
+FROM registry.access.redhat.com/ubi8/ubi
+
+MAINTAINER Jan Hutar <jhutar@redhat.com>
+
+WORKDIR /usr/src/app
+
+RUN INSTALL_PKGS="python3" \
+  && yum -y install $INSTALL_PKGS \
+  && yum clean all
+
+COPY requirements-testing.txt .
+
+RUN python3 -m pip install --no-cache-dir -U pip \
+    && python3 -m pip install --no-cache-dir -r /usr/src/app/requirements-testing.txt
+
+COPY testing.py /usr/src/app/
+
+USER 1001
+
+CMD locust --locustfile testing.py --headless --users 1 --spawn-rate 1 -H http://localhost:5000 --run-time 3 --print-stats --only-summary
