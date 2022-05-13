@@ -79,6 +79,22 @@ class Move(app_db.Model):
 # Routes
 ##########
 
+def _serialize(query):
+    if 'page' in flask.request.args:
+        page = flask.request.args['page']
+    else:
+        page = 1
+
+    data = query.paginate(page=page)
+
+    return {
+        "total": data.total,
+        "page": data.page,
+        "pages": data.pages,
+        "per_page": data.per_page,
+        "items": [d.serialize() for d in data.items],
+    }
+
 @app.route('/', methods=['GET'])
 def index():
     """Show API docs."""
@@ -87,15 +103,12 @@ def index():
 @app.route('/api/moves', methods=['GET'])
 def api_moves():
     """List moves."""
-    moves = Move.query.all()
-    return {"count": len(moves), "results": [m.serialize() for m in moves]}
+    return _serialize(Move.query)
 
 @app.route('/api/users', methods=['GET'])
 def api_users():
     """List users."""
-    users = User.query.all()
-    return {"count": len(users), "results": [u.serialize() for u in users]}
-
+    return _serialize(User.query)
 
 
 ##########
