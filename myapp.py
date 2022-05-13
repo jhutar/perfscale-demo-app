@@ -105,10 +105,20 @@ def api_moves():
     """List moves."""
     return _serialize(Move.query)
 
+@app.route('/api/moves/<int:mid>', methods=['GET'])
+def api_moves_uid(uid):
+    """Return info about move ID."""
+    return Move.query.filter_by(id=mid).first_or_404().serialize()
+
 @app.route('/api/users', methods=['GET'])
 def api_users():
     """List users."""
     return _serialize(User.query)
+
+@app.route('/api/users/<int:uid>', methods=['GET'])
+def api_users_uid(uid):
+    """Return info about user ID."""
+    return User.query.filter_by(id=uid).first_or_404().serialize()
 
 
 ##########
