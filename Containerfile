@@ -12,7 +12,8 @@ RUN INSTALL_PKGS="python3" \
 
 COPY requirements.txt .
 
-RUN python3 -m pip install --no-cache-dir -r /usr/src/app/requirements.txt
+RUN python3 -m pip install --no-cache-dir -U pip \
+    && python3 -m pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
 COPY . /usr/src/app
 
