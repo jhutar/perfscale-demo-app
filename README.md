@@ -30,7 +30,7 @@ Setup terminal environment with what you need to run the app:
 
 Initialize DB and create some testing data:
 
-    flask init-db
+    flask db upgrade
     flask test-data
 
 And finally this will get you the server running on `http://127.0.0.1:5000/`:
