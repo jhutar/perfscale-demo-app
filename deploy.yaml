@@ -19,7 +19,8 @@ spec:
           imagePullPolicy: Always
           command:
             - flask
-            - init-db
+            - db
+            - upgrade
           env:
             - name: POSTGRESQL_HOST
               value: postgresql.perfscale-demo-app.svc

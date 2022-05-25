@@ -12,6 +12,7 @@ import faker
 import flask
 
 import flask_sqlalchemy
+import flask_migrate
 
 from sqlalchemy.inspection import inspect
 from sqlalchemy.sql import func
@@ -24,6 +25,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{ os.environ['POSTGRESQL_
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app_db = flask_sqlalchemy.SQLAlchemy(app)
+
+app_migrate = flask_migrate.Migrate(app, app_db)
 
 
 ##########
@@ -145,17 +148,6 @@ def api_users_search():
 ##########
 # CLI
 ##########
-
-@click.command('init-db')
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    app.logger.info(f"Dropping tables {','.join([i.name for i in app_db.metadata.sorted_tables])}")
-    app_db.drop_all()
-    app.logger.info(f"Creating tables {','.join([i.name for i in app_db.metadata.sorted_tables])}")
-    app_db.create_all()
-    click.echo('Initialized the database.')
-
-app.cli.add_command(init_db_command)
 
 @click.command('test-data')
 def test_data_command():

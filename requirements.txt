@@ -1,5 +1,6 @@
 faker
 flask
 flask-sqlalchemy
+flask-migrate
 gunicorn
-psycopg2-binary
+psycopg2
