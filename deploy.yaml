@@ -178,11 +178,11 @@ spec:
               name: postgresql-data
           resources:
             requests:
-              memory: 512Mi
-              cpu: 500m
+              memory: 256Mi
+              cpu: 250m
             limits:
-              memory: 512Mi
-              cpu: 500m
+              memory: 256Mi
+              cpu: 250m
       volumes:
         - name: postgresql-data
           persistentVolumeClaim:
