@@ -11,7 +11,7 @@ class MyAppUser(HttpUser):
 
     @task
     def get_users_uid(self):
-        self.client.get("/api/users/1")
+        self.client.get("/api/users/42")
 
     @task
     def get_users_search_name(self):
@@ -31,4 +31,4 @@ class MyAppUser(HttpUser):
 
     @task
     def get_moves_mid(self):
-        self.client.get("/api/moves/1")
+        self.client.get("/api/moves/24")
