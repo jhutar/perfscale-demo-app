@@ -111,6 +111,9 @@ def api_moves():
 @app.route('/api/moves/<int:mid>', methods=['GET'])
 def api_moves_mid(mid):
     """Return info about move ID."""
+    something = 0
+    for i in range(100000):
+        something += i
     return Move.query.filter_by(id=mid).first_or_404().serialize()
 
 @app.route('/api/users', methods=['GET'])
