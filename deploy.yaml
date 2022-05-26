@@ -8,8 +8,6 @@ spec:
   selector:
     app: perfscale-demo-app
   replicas: 1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -67,6 +65,13 @@ spec:
                 secretKeyRef:
                   key: database-name
                   name: postgresql
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 250m
+            limits:
+              memory: 256Mi
+              cpu: 250m
           ports:
             - containerPort: 5000
 ---
