@@ -1,12 +1,18 @@
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: perfscale-demo-app
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: perfscale-demo-app
   namespace: perfscale-demo-app
 spec:
   selector:
-    app: perfscale-demo-app
+    matchLabels:
+      app: perfscale-demo-app
   replicas: 1
   template:
     metadata:
@@ -140,14 +146,15 @@ spec:
   storageClassName: gp2
   volumeMode: Filesystem
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: postgresql
   namespace: perfscale-demo-app
 spec:
   selector:
-    name: postgresql
+    matchLabels:
+      name: postgresql
   replicas: 1
   strategy:
     type: Recreate
@@ -193,14 +200,15 @@ spec:
           persistentVolumeClaim:
             claimName: postgresql
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: testing
   namespace: perfscale-demo-app
 spec:
   selector:
-    app: testing
+    matchLabels:
+      app: testing
   replicas: 1
   template:
     metadata:
