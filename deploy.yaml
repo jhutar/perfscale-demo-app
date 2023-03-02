@@ -29,7 +29,7 @@ spec:
             - upgrade
           env:
             - name: POSTGRESQL_HOST
-              value: postgresql.perfscale-demo-app.svc
+              value: postgresql
             - name: POSTGRESQL_PORT
               value: '5432'
             - name: POSTGRESQL_USER
@@ -61,7 +61,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: POSTGRESQL_HOST
-              value: postgresql.perfscale-demo-app.svc
+              value: postgresql
             - name: POSTGRESQL_PORT
               value: '5432'
             - name: POSTGRESQL_USER
@@ -159,7 +159,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp2
+  storageClassName: gp2-csi
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1

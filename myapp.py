@@ -157,7 +157,15 @@ def test_data_command():
     """Populate initial test data to the DB."""
     fake = faker.Faker('cs_CZ')
 
-    for i in range(10 * 1000):
+    # Using this specific user in the test
+    u = User()
+    u.name = "Pavla Novotna"
+    u.address = "Brno"
+    u.email = "pavla@seznam.cz"
+    u.balance = 1000
+    app_db.session.add(u)
+
+    for i in range(1000):
         u = User()
         u.name = fake.name()
         u.address = fake.address()
@@ -169,7 +177,7 @@ def test_data_command():
     app_db.session.commit()
 
     users = User.query.all()
-    for i in range(100 * 1000):
+    for i in range(10000):
         from_user = random.choice(users)
         to_user = random.choice([item for item in users if item != from_user])
         m = Move()
