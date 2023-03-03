@@ -49,9 +49,6 @@ class User(app_db.Model):
         return f'<User {self.name}>'
 
     def serialize(self):
-        something = 0
-        for i in range(100000):
-            something += i
         return {
             "id": self.id,
             "address": self.address,
